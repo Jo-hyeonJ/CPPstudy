@@ -2,16 +2,29 @@
 #include <math.h> // 루트 및 수학적 헤더
 #include <cmath> // 다른 수학 라이브러리 헤더
 
-
+/*
 void PointerFunction(int* x)
 {
 	*x = 1000;
+	std::cout << "PointerFunction x의 주소 : " << &x << std::endl;
 }
 
 void ReferenceFunction(int& x)
 {
 	x = 100;
+	std::cout << "ReferenceFunction x의 주소 : " << &x << std::endl;
 }
+*/
+
+
+// 디폴트 매개변수는 오른쪽에서부터 정의해야한다.
+// 왼쪽부터 인수로 사용된 값이 대입되기 때문이다.
+void Calculator(int x, int y = 100) // 매개변수에 기본값을 넣는다.
+{
+	std::cout << "x의 값 : " << x << std::endl;
+	std::cout << "y의 값 : " << y << std::endl;
+}
+
 
 int main()
 {
@@ -65,6 +78,7 @@ int main()
 
 	*/
 
+	/*
 	int data = 10;
 
 	PointerFunction(&data);
@@ -74,6 +88,28 @@ int main()
 	ReferenceFunction(data);
 
 	std::cout << "data의 값 : " << data << std::endl;
+	*/
+
+	// 기본 매개변수
+	/*
+	// 함수를 선언 및 정의할 때 미리 기본값을 지정하는 매개변수이다.
+	인수를 대입하지 않아도 기본 값이 대입된 함수의 사용이 가능하다.
+	int variable = 300;
+
+	Calculator(variable);
+	*/
+
+
+	// 자료형 추론
+	// 들어오는 값에 따라 자동으로 자료형으로 추론해주는 자료형이다.
+	auto signal = 100;
+	signal = 'A';
+	// 컴파일 시점에 자료형이 결정된다. 이후 변경 되지 않음.
+
+	auto character = 'A';
+	auto decimal = 36.5;
+
+	std::cout << "signal의 값 : " << signal << std::endl;
 
 	return 0;
 
