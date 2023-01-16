@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="(2023.01.13)참조 연산자.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
