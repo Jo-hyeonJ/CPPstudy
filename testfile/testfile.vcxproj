@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="(2023.01.13)참조 연산자.h" />
+    <ClInclude Include="(2023.01.16)범위 기반 반복문+동적할당.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
