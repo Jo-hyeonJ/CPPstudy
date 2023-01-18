@@ -18,12 +18,21 @@
     <ClCompile Include="Application.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Computer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="(2023.01.13)참조 연산자.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="(2023.01.16)범위 기반 반복문+동적할당.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="(2023.01.17)네임스페이스와 클래스.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Computer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
