@@ -134,6 +134,7 @@
     <ClInclude Include="(2023.01.13)참조 연산자.h" />
     <ClInclude Include="(2023.01.16)범위 기반 반복문+동적할당.h" />
     <ClInclude Include="(2023.01.17)네임스페이스와 클래스.h" />
+    <ClInclude Include="(2023.01.18)생성자와 소멸자 클래스의 선언정의.h" />
     <ClInclude Include="Computer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

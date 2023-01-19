@@ -1,79 +1,53 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define BUFFER_SIZE 100000
+
 #include <iostream> // C++ 입출력 헤더
 #include <math.h> // 루트 및 수학적 헤더
 #include <cmath> // 다른 수학 라이브러리 헤더
-#include "Computer.h"
+
 
 using namespace std;
 
-class Character
+void Function(const char* textname) // 함수로 만들기
 {
-    // 생성자란?
-    // 클래스의 인스턴스가 생성되는 시점에 자동으로 호출되는 특수한 멤버 함수이다.
-    // 객체 생성시의 알람 역할
+    FILE* file = fopen(textname, "r");
 
-private :
-    int x;
-    int y;
+    char buffer[BUFFER_SIZE] = { 0, };
 
-public : // 생성자의 경우 객체가 생성될 때 단 한번만 호출되며, 별도의 반환형이 없다.
-    Character(int m_x, int m_y) // 생성자는 별도의 함수가 아닌 클래스의 이름과 동일하게 정의된다.
-    // 매개 변수를 설정해놓을 수 있으며 클래스 불러오기 시 변수를 입력해주어야한다. 
-    
-    {
-        x = m_x;
-        y = m_y;
+   
+    fread(buffer, 1, BUFFER_SIZE, file);
+    printf("%s", buffer); 
 
-        cout << "x : " << x << " y : " << y << endl;
-
-    }
-
-    // 소멸자
-    // 객체가 소멸될 때 자동으로 실행되는 클래스의 멤버 함수이다.
-    // 메모리의 할당 해제를 의미하며 코드 종결 시에도 작동한다.
-    ~Character() // "~"+"클래스 이름"으로 정의 가능하다.
-    {
-        cout << "Character가 파괴 되었습니다." << endl;
-
-    }
-
-    // const 함수
-    // 함수 내부에서 값을 변경하지 못하도록 상수화하는 함수이다.
-    // 읽기 전용으로 만드는 안전장치
-    void Talk() const
-    {
-        // x = 100; <-에러 
-        cout << "대화 진행" << endl;
-
-    }
-
-
-};
+    fclose(file);
+}
 
 int main()
 {
-    //생성자와 소멸자
+    // 파일 입출력
     /*
-    // Character character;
+    // 파일 입력 [fopen] 
+    // w = write (쓰기 모드)
+    // r = read (읽기 모드)
+    FILE* file = fopen("data.txt", "w"); //(파일의 이름, 파일 모드)
 
-    // character.Talk();
 
-    Character* champion = new Character(1,1); // 생성자에 설정된 매개 변수 삽입
+    fputs("Game password", file);
 
-    delete champion;
+    // 파일을 닫아줘야함
+    fclose(file);
+    
+    // 파일 불러오기 (fopen)
+    FILE* file = fopen("egg.txt", "r");
 
-   // cout << "character의 크기 : " << sizeof(character) << endl;
-   */
+    char buffer[BUFFER_SIZE] = { 0, };
 
-    // 클래스의 선언과 정의
-    /*
-    // 보편적으로 클래스를 사용 할 땐 선언과 정의 부분으로 나눈다.
-    // 선언 : 변수와 함수 명명과 초기화를 담당한다. [헤더 파일로 저장]
-    // 정의 : 선언한 요소들에 값과 세부 내용을 작성한다. [cpp로 저장]
-    // 클래스 파일 참조
+    // 파일 읽기[fread]엔 버퍼가 필요하다.
+    fread(buffer, 1, BUFFER_SIZE, file); //(버퍼 이름, 속성 크기, 범위, 파일명)
+    printf("%s", buffer); //파일과 관련 되어 printf를 사용한다칸다.
 
-    Computer samsung;
-    samsung.Power();
+    fclose(file);
     */
+    Function("egg.txt");
 
 
     return 0;
