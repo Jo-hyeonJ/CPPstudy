@@ -1,53 +1,80 @@
 #define _CRT_SECURE_NO_WARNINGS
-#define BUFFER_SIZE 100000
 
 #include <iostream> // C++ 입출력 헤더
 #include <math.h> // 루트 및 수학적 헤더
 #include <cmath> // 다른 수학 라이브러리 헤더
 
-
 using namespace std;
-
-void Function(const char* textname) // 함수로 만들기
-{
-    FILE* file = fopen(textname, "r");
-
-    char buffer[BUFFER_SIZE] = { 0, };
-
-   
-    fread(buffer, 1, BUFFER_SIZE, file);
-    printf("%s", buffer); 
-
-    fclose(file);
-}
 
 int main()
 {
-    // 파일 입출력
+    //string 문
     /*
-    // 파일 입력 [fopen] 
-    // w = write (쓰기 모드)
-    // r = read (읽기 모드)
-    FILE* file = fopen("data.txt", "w"); //(파일의 이름, 파일 모드)
-
-
-    fputs("Game password", file);
-
-    // 파일을 닫아줘야함
-    fclose(file);
+    std::string nickName = "JJJ";
     
-    // 파일 불러오기 (fopen)
-    FILE* file = fopen("egg.txt", "r");
+    cout << "nickName의 값 : " << nickName << endl;
+    cout << "nickName의 크기 : " << nickName.length() << endl;
+    // length() : null 문자를 포함하지 않고 크기를 반환하는 함수
 
-    char buffer[BUFFER_SIZE] = { 0, };
+    nickName = "jojojun";
 
-    // 파일 읽기[fread]엔 버퍼가 필요하다.
-    fread(buffer, 1, BUFFER_SIZE, file); //(버퍼 이름, 속성 크기, 범위, 파일명)
-    printf("%s", buffer); //파일과 관련 되어 printf를 사용한다칸다.
+    cout << "nickName의 값 : " << nickName << endl;
+    cout << "nickName의 크기 : " << nickName.length() << endl;
 
-    fclose(file);
+    nickName.clear();
+    // clear() : 문자열을 비우는 함수이다.
+
+    cout << "nickName의 값 : " << nickName << endl;
+    cout << "nickName의 크기 : " << nickName.length() << endl;
+
+    //cin >> nickName;
+    char line[256];
+    cin.getline(line, 200);
+    // 띄워쓰기까지 출력하는 함수
+
+    cout << "nickName의 값 : " << line << endl;
+    cout << "nickName의 크기 : " << sizeof(line) << endl; // 256으로 나옴
     */
-    Function("egg.txt");
+
+    // 회문 판별
+
+    int right = 0;
+    
+    std::string fishword;
+
+    cin >> fishword;
+
+    cout << "입력된 문자 : " << fishword << endl;
+    
+    int longer = fishword.length();
+   
+
+    for (int i = 0; i < longer/2 + longer % 2; i++)
+    {
+        cout << "비교 문자 : " << fishword[i] << "와";
+        cout << fishword[longer -1 -i] << endl;
+
+        if (fishword[i] != fishword[longer -1 -i])
+        {
+            right = 1;
+        }
+    }
+
+    if (right == 1)
+    {
+        cout << fishword << "는 회문이 아닙니다." << endl;
+    }
+    else if (right == 0)
+    {
+        cout << fishword << "는 회문입니다." << endl;
+    }
+    else
+    {
+        cout << "오류!!" << endl;
+    }
+
+
+
 
 
     return 0;
