@@ -41,5 +41,8 @@
     <ClInclude Include="%282023.01.19%29파일입출력.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="string문.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,74 +6,93 @@
 
 using namespace std;
 
+class IPhone
+{
+public:
+    int size;
+    int price;
+    int* version;
+
+
+    IPhone()
+    {
+        version = new int;
+        cout << "기본 생성자 호출" << endl;
+    }
+
+    // 복사 생성자
+    IPhone(const IPhone& copyIPhone) // 읽기 전용으로 생성 가능
+    {
+        // 깊은 복사란?
+        // 객체를 복사할 때, 참조 값이 아닌 인스턴스 자체를 새로 복사하여
+        // 서로 다른 메모리를 생성하는 복사이다.
+
+        size = copyIPhone.size;
+        price = copyIPhone.price;
+
+        version = new int; // 동적 메모리로 받아준다. 각각 다른 메모리를 가지게 함.
+        *version = *copyIPhone.version;
+
+        cout << "복사 생성자 호출" << endl;
+
+        cout << "size : " << size << endl;
+        cout << "price : " << price << endl;
+        cout << "version : " << *version << endl;
+    }
+    
+    ~IPhone()
+    {
+        delete version;
+    }
+    
+};
+
 int main()
 {
-    //string 문
+    // 복사 생성자란?
     /*
-    std::string nickName = "JJJ";
-    
-    cout << "nickName의 값 : " << nickName << endl;
-    cout << "nickName의 크기 : " << nickName.length() << endl;
-    // length() : null 문자를 포함하지 않고 크기를 반환하는 함수
+    // 같은 객체를 복사하여 생성시킬 때 호출되는 생성자입니다.
+    IPhone se1;
 
-    nickName = "jojojun";
+    se1.price = 100000;
+    se1.size = 5;
 
-    cout << "nickName의 값 : " << nickName << endl;
-    cout << "nickName의 크기 : " << nickName.length() << endl;
-
-    nickName.clear();
-    // clear() : 문자열을 비우는 함수이다.
-
-    cout << "nickName의 값 : " << nickName << endl;
-    cout << "nickName의 크기 : " << nickName.length() << endl;
-
-    //cin >> nickName;
-    char line[256];
-    cin.getline(line, 200);
-    // 띄워쓰기까지 출력하는 함수
-
-    cout << "nickName의 값 : " << line << endl;
-    cout << "nickName의 크기 : " << sizeof(line) << endl; // 256으로 나옴
+    IPhone se2 = se1;
     */
 
-    // 회문 판별
+    // 얕은 복사
+    /*
+    // 객체를 복사할 때 주솟값을 복사하여 같은 메모리를 가르키는 복사이다.
+    // -> 따로 값을 가지지 못하고 메모리 해제시 오류 발생 가능성 있음
 
-    int right = 0;
-    
-    std::string fishword;
+    int* ptr1 = new int;
+    *ptr1 = 10000;
 
-    cin >> fishword;
+    int* ptr2 = ptr1;
+    *ptr2 = 3000;
 
-    cout << "입력된 문자 : " << fishword << endl;
-    
-    int longer = fishword.length();
-   
+    cout << "ptr1의 값 : " << *ptr1 << endl;
+    cout << "ptr2의 값 : " << *ptr2 << endl;
 
-    for (int i = 0; i < longer/2 + longer % 2; i++)
-    {
-        cout << "비교 문자 : " << fishword[i] << "와";
-        cout << fishword[longer -1 -i] << endl;
+    delete ptr1;
+    // delete ptr2; 이미 해제된 메모리를 해제하려 시도한 것 (오류 발생)
+    */
 
-        if (fishword[i] != fishword[longer -1 -i])
-        {
-            right = 1;
-        }
-    }
+    IPhone se1;
 
-    if (right == 1)
-    {
-        cout << fishword << "는 회문이 아닙니다." << endl;
-    }
-    else if (right == 0)
-    {
-        cout << fishword << "는 회문입니다." << endl;
-    }
-    else
-    {
-        cout << "오류!!" << endl;
-    }
+    *se1.version = 10;
+    se1.price = 100000;
+    se1.size = 5;
 
+    IPhone se2 = se1;
+    *se2.version = 20;
 
+    cout << "*se1.version의 값 : " << *se1.version << endl;
+    cout << "*se2.version의 값 : " << *se2.version << endl;
+
+    // 깊은 복사란?
+    // 객체를 복사할 때, 참조 값이 아닌 인스턴스 자체를 새로 복사하여
+    // 서로 다른 메모리를 생성하는 복사이다.
 
 
 
