@@ -136,6 +136,7 @@
     <ClInclude Include="(2023.01.17)네임스페이스와 클래스.h" />
     <ClInclude Include="(2023.01.18)생성자와 소멸자 클래스의 선언정의.h" />
     <ClInclude Include="%282023.01.19%29파일입출력.h" />
+    <ClInclude Include="(2023.01.25)얕은 복사 깊은복사.h" />
     <ClInclude Include="Computer.h" />
     <ClInclude Include="string문.h" />
   </ItemGroup>
