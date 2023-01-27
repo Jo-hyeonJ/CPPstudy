@@ -6,110 +6,108 @@
 
 using namespace std;
 
-// #pragma pack(1)
-// 바이트 패딩을 하지 않고 1바이트로 계산하는 전처리기
-// #pragma region
-
-
-class Unit
+class Monster
 {
-public : // 바이트 패딩이 적용 되어 실사용량은 11바이트지만 16바이트를 차지한다.
-    char grade;
+public:
     int health;
-    short mp;
-    int attack;
-    
-    Unit()
+    static int count;
+
+    // this 포인터
+    // 자기 자신을 가르키는 포인터 (자신의 주소값을 가진다.) = 상수 값이라 수정 불가
+
+    Monster(int health)
     {
-        cout << "Unit 객체 생성" << endl;
+        this -> health = health;
+
     }
 
-    void Skill(string skillName)
+    void Tracking()
     {
-        cout << skillName << endl;
+        cout << this << "가 호출했습니다." << endl;
+        cout << "몬스터 추적" << endl;
     }
 
-    ~Unit()
+    ~Monster()
     {
-        cout << "Unit 객체 파괴" << endl;
+        count++;
+        cout << "몬스터를 처치한 횟수 : " << count << endl;
+    }
+};
+
+// static 멤버 변수는 모든 객체들이 접근해야 하므로 프로그램 시작부터 끝까지 유지
+// 되어야 하기에 전역 범위에서만 정의할 수 있다.
+int Monster::count = 0;
+
+class KeyBoard
+{
+public:
+    bool power;
+
+    void Typing()
+    {
+        cout << "키보드 입력" << endl;
+    }
+};
+
+class Mouse
+{
+public:
+    bool power;
+
+    void Drag()
+    {
+        cout << "마우스 드래그" << endl;
     }
 
 };
 
-// protected 상속
-// 상속 받은 속성 중 public 접근 지정자를 모두 protected로 바꾼다.
-//               ↓ 접근 지정자
-class Ghost : protected Unit
+class Computer : public Mouse, public KeyBoard 
 {
-private :
-    int defense = 3;
-
-public :
-    Ghost()
+public:
+    void use()
     {
-        health = 100;
-        attack = 25;
+        Mouse::power = true;
+        Typing();
+        Drag();
 
-        //Skill("Lock Down");
-        cout << "Ghost 객체 생성" << endl;
     }
-
-    ~Ghost()
-    {
-        cout << "Ghost 객체 파괴" << endl;
-    }
-};
-
-
-// private 상속
-// 상속 받은 클래스가 private보다 접근 범위가 넓은 접근 지정자를 모두
-// private로 설정하는 상속이다.                    (public, protected)
-
-//           ↓접근 지정자 [private]로 지정시 상속 받은 속성을 모두 private로 바꾼다.
-class Duran : private Ghost
-{
-public :
-    Duran()
-    {
-        health = 300;
-        attack = 30;
-        // defense = 30; private로 설정 되었기 때문에 수정하지못한다.
-        // 하지만 상속 자체는 받는다.
-
-        //Skill("Clocking");
-
-        cout << "Duran 객체 생성" << endl;
-    }
-    ~Duran()
-    {
-        cout << "Duran 객체 파괴" << endl;
-    }
-
 };
 
 
 int main()
 {
-    // 상속이란?
+    // 정적 변수
     /*
-    // 상위 클래스의 속성을 하위 클래스가 사용 할 수 있도록 설정해주는 기능이다.
-    
-    Unit unit;
-    //Ghost ghost;
-    
-    
-    cout << "unit의 메모리 크기 : " << sizeof(unit) << endl;
-    //cout << "ghost의 메모리 크기 : " << sizeof(ghost) << endl;
-    
-    Duran duran;
-    cout << "duran의 메모리 크기 : " << sizeof(duran) << endl;
+    // static : 전역 변수와 지역 변수의 특징을 모두 가진 변수
+    Monster * m1 = new Monster;
+    m1->health = 100;
 
-    // 생성자는 상속 받은 클래스를 전부 상위부터 순서대로 불러오고
-    // 소멸자는 불러온 순서의 역순으로 작용한다.
+    delete m1;
+
+    Monster* m2 = new Monster;
+    m2->health = 100;
+
+    delete m2;
     */
 
+    Monster m1(100);
+    Monster m2(125);
+    Monster m3(175);
 
+    m1.Tracking();
+    m2.Tracking();
+    m3.Tracking();
 
+    // 다중 상속
+    // 복수의 상위 클래스에게 상속을 받는 상속
+    // 여러 개의 상위 클래스에 중복 되는 속성이 존재 할 수 있기 때문에
+    // 범위지정연산자로 특정성을 부여한다.
+
+    Computer computer;
+    computer.use();
+    computer.::Mouse::power = true; //부모가 둘 다 가진 요소는 모호성이 발생함
+    // 특정성을 가지기 위해 범위 지정연산자(::)를 통해 상위 클래스의 이름을 선언하고
+    // 속성을 이용 할 수 있다.
 
     return 0;
 }
