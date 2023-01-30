@@ -6,108 +6,129 @@
 
 using namespace std;
 
-class Monster
+class Cat
 {
-public:
-    int health;
-    static int count;
+public :
+    int age;
+    char blood;
+    double weight;
 
-    // this 포인터
-    // 자기 자신을 가르키는 포인터 (자신의 주소값을 가진다.) = 상수 값이라 수정 불가
-
-    Monster(int health)
-    {
-        this -> health = health;
-
-    }
-
-    void Tracking()
-    {
-        cout << this << "가 호출했습니다." << endl;
-        cout << "몬스터 추적" << endl;
-    }
-
-    ~Monster()
-    {
-        count++;
-        cout << "몬스터를 처치한 횟수 : " << count << endl;
-    }
 };
 
-// static 멤버 변수는 모든 객체들이 접근해야 하므로 프로그램 시작부터 끝까지 유지
-// 되어야 하기에 전역 범위에서만 정의할 수 있다.
-int Monster::count = 0;
-
-class KeyBoard
+class Animal
 {
 public:
-    bool power;
-
-    void Typing()
+    void Sound()
     {
-        cout << "키보드 입력" << endl;
-    }
-};
+        cout << "동물의 울음소리" << endl;
 
-class Mouse
-{
-public:
-    bool power;
-
-    void Drag()
-    {
-        cout << "마우스 드래그" << endl;
     }
 
 };
 
-class Computer : public Mouse, public KeyBoard 
+class Dog : public Animal
 {
+    
 public:
-    void use()
+    void Sound()
     {
-        Mouse::power = true;
-        Typing();
-        Drag();
-
+        cout << "강아지의 울음소리" << endl;
     }
+    
 };
 
+// 함수의 오버로딩
+// '같은 이름의 함수'를 매개 변수의 자료형과 매개 변수의 개수로 구분하여
+// 여러 개를 선언할 수 있는 기능이다.
+
+void Vector(float x, float y)
+{
+    cout << "2차원 Vector 함수" << endl;
+
+}
+
+void Vector(int x, int y)
+{
+    cout << "2차원 Vector(int) 함수" << endl;
+
+}
+
+void Vector(float x, float y, float z)
+{
+    cout << "3차원 Vector 함수" << endl;
+
+}
+
+void Vector(int x, int y, int z)
+{
+    cout << "3차원 Vector(int) 함수" << endl;
+
+}
+
+// 함수의 오버로딩의 경우 함수의 매개 변수에 전달하는 인수의 형태를 보고 호출한다.
+// ↓ 반환형은 함수의 오버로딩이 생성 되지 않는다.
+// int Vector(int x, int y)
 
 int main()
 {
-    // 정적 변수
+    // 클래스 오프셋
     /*
-    // static : 전역 변수와 지역 변수의 특징을 모두 가진 변수
-    Monster * m1 = new Monster;
-    m1->health = 100;
+    // 동일한 프로젝트 안에서 처음부터 주어진 요소나 지점까지의
+    // 변위치를 나타내는 정수형이다.
 
-    delete m1;
+    Cat cat;
 
-    Monster* m2 = new Monster;
-    m2->health = 100;
+    cat.age = 5;
+    cat.blood = 'O';
+    cat.weight = 5.75f;
 
-    delete m2;
+    cout << (int)(&(((Cat*)0)->age)) << endl;
+    cout << (int)(&(((Cat*)0)->blood)) << endl;
+    cout << (int)(&(((Cat*)0)->weight)) << endl;
+
+    cout << "cat의 메모리 크기 : " << sizeof(cat) << endl;
     */
 
-    Monster m1(100);
-    Monster m2(125);
-    Monster m3(175);
+    // 다형성이란?
+    // 다수의 서로 다른 객체가 동일한 기능을 서로 다른 방법으로 처리할 수 있는 작업
 
-    m1.Tracking();
-    m2.Tracking();
-    m3.Tracking();
+    // 함수의 오버로딩
+    /*
+    Vector(10, 20);
+    Vector(10, 20, 30);
+    Vector(5.75, 25.5f);
+    Vector(10.75f, 15.35f, 2.5f);
+    */
+    
+    // 함수의 오버라이딩
+    // 상위 클래스에 있는 함수를 하위 클래스(상속)에서 재정의하여 사용하는 기능이다.
+    // 하위 클래스에서 함수를 재정의 할 땐 상위 클래스의 함수 형태와 일치해야한다.
 
-    // 다중 상속
-    // 복수의 상위 클래스에게 상속을 받는 상속
-    // 여러 개의 상위 클래스에 중복 되는 속성이 존재 할 수 있기 때문에
-    // 범위지정연산자로 특정성을 부여한다.
 
-    Computer computer;
-    computer.use();
-    computer.::Mouse::power = true; //부모가 둘 다 가진 요소는 모호성이 발생함
-    // 특정성을 가지기 위해 범위 지정연산자(::)를 통해 상위 클래스의 이름을 선언하고
-    // 속성을 이용 할 수 있다.
+    Dog * dog = new Dog();
+    dog->Sound();
+
+    Animal* animal = new Animal();
+
+    animal->Sound();
+
+    animal = dog;
+    // 정적 바인딩이 일어난다고 함
+    animal->Sound();
+
+
+    delete dog;
+    
 
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
