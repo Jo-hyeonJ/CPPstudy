@@ -6,118 +6,158 @@
 
 using namespace std;
 
-class Cat
-{
-public :
-    int age;
-    char blood;
-    double weight;
-
-};
-
-class Animal
+class Weapon
 {
 public:
-    void Sound()
+    // 가상 함수 선언
+    virtual void Attack()
     {
-        cout << "동물의 울음소리" << endl;
+        cout << "공격" << endl;
+
+    }
+
+    void Information()
+    {
+        cout << "무기의 정보" << endl;
 
     }
 
 };
 
-class Dog : public Animal
+class Sword : public Weapon
 {
-    
 public:
-    void Sound()
+    void Attack()
     {
-        cout << "강아지의 울음소리" << endl;
+        cout << "검으로 베기" << endl;
+
     }
-    
+
+    void Information()
+    {
+        cout << "검의 정보" << endl;
+
+    }
 };
 
-// 함수의 오버로딩
-// '같은 이름의 함수'를 매개 변수의 자료형과 매개 변수의 개수로 구분하여
-// 여러 개를 선언할 수 있는 기능이다.
-
-void Vector(float x, float y)
+class Gun : public Weapon
 {
-    cout << "2차원 Vector 함수" << endl;
+public:
+    void Attack()
+    {
+        cout << "총으로 쏘기" << endl;
 
-}
+    }
 
-void Vector(int x, int y)
+    void Information()
+    {
+        cout << "총의 정보" << endl;
+
+    }
+};
+
+// 캡슐화
+/*
+ 객체의 속성과 함수를 하나로 묶어서 실제 구현 내용의 일부를 내부에 은닉하여
+ 감추는 작업이다. 속성 값을 보호하는데에 사용된다.
+
+ OOP 객체 지향 프로그래밍
+ 4대 특징
+ 1. 상속
+ 2. 다형성
+ 3. 캡슐화
+ 4. 추상화
+
+*/
+
+class Car
 {
-    cout << "2차원 Vector(int) 함수" << endl;
+private:
+    int speed;
+public:
+    void SetPedal(int speed)
+    {
+        if (speed >= 180)
+        {
+            speed = 180;
+        }
+        this->speed = speed;
+    
+    }
 
-}
+    int GetSpeed()
+    {
+        return speed;
 
-void Vector(float x, float y, float z)
+    }
+
+
+};
+
+class Object
 {
-    cout << "3차원 Vector 함수" << endl;
+public:
+    // 순수 가상 함수
+    // 정의하지 않은 가상 함수를 만들어 하위 클래스에서 재정의하길 기대한다.
+    // 순수 가상 함수가 하나라도 포함이 되어 있다면 추상 클래스라고 정의한다.
+    virtual void A() = 0;
 
-}
+};
 
-void Vector(int x, int y, int z)
+class NPC : public Object
 {
-    cout << "3차원 Vector(int) 함수" << endl;
+    void A()
+    {
+        cout << "ㅇㄱㅇ" << endl;
+    }
 
-}
+};
 
-// 함수의 오버로딩의 경우 함수의 매개 변수에 전달하는 인수의 형태를 보고 호출한다.
-// ↓ 반환형은 함수의 오버로딩이 생성 되지 않는다.
-// int Vector(int x, int y)
 
 int main()
 {
-    // 클래스 오프셋
+    // 가상 함수란?
     /*
-    // 동일한 프로젝트 안에서 처음부터 주어진 요소나 지점까지의
-    // 변위치를 나타내는 정수형이다.
-
-    Cat cat;
-
-    cat.age = 5;
-    cat.blood = 'O';
-    cat.weight = 5.75f;
-
-    cout << (int)(&(((Cat*)0)->age)) << endl;
-    cout << (int)(&(((Cat*)0)->blood)) << endl;
-    cout << (int)(&(((Cat*)0)->weight)) << endl;
-
-    cout << "cat의 메모리 크기 : " << sizeof(cat) << endl;
-    */
-
-    // 다형성이란?
-    // 다수의 서로 다른 객체가 동일한 기능을 서로 다른 방법으로 처리할 수 있는 작업
-
-    // 함수의 오버로딩
-    /*
-    Vector(10, 20);
-    Vector(10, 20, 30);
-    Vector(5.75, 25.5f);
-    Vector(10.75f, 15.35f, 2.5f);
-    */
+    // 상속하는 클래스 내에서 같은 형태의 함수로 재정의 될 수 있는 함수입니다.
+    // 바인딩을 지연시키는 형식
     
-    // 함수의 오버라이딩
-    // 상위 클래스에 있는 함수를 하위 클래스(상속)에서 재정의하여 사용하는 기능이다.
-    // 하위 클래스에서 함수를 재정의 할 땐 상위 클래스의 함수 형태와 일치해야한다.
+    // 가상 함수 테이블(vtable)
+    // 가상 함수로 정의한 함수들이 저장 되는 공간 [key/value]로 나뉘어 저장 된다.
+    //                                   [함수의. 이름/메모리 주소]
+    // 포인터 형식이기에 메모리 잡아먹는다
 
+    
+    Weapon* weapon = new Weapon();
+    weapon->Attack();
 
-    Dog * dog = new Dog();
-    dog->Sound();
+    cout << "Weapon 클래스의 크기 : " << sizeof(weapon) << endl;
+    // 함수 뿐인 클래스라 메모리 크기는 1이여야 하지만 가상 함수 크기로 8이 잡힌다.
 
-    Animal* animal = new Animal();
+    Gun* gun = new Gun();
 
-    animal->Sound();
+    weapon = gun;
+    
+    weapon->Attack();
 
-    animal = dog;
-    // 정적 바인딩이 일어난다고 함
-    animal->Sound();
+    delete weapon;
+    */
 
+    // 캡슐화
+    /*
+    Car car;
+    car.SetPedal(2000);
+    
+    cout << car.GetSpeed() << endl;
+    */
 
-    delete dog;
+    // 순수 가상 함수란?
+    // 인터페이스를 하위 클래스에게 전달하기 위해 사용하는 함수이다.
+    // [정의 되지 않은 순수 가상 함수]가 있다면 생성할 수 없다.
+    
+    // Object object; 
+    Object* obj; // 주소값만 받은 포인터 생성은 상관x
+    NPC npc;
+
     
 
     return 0;

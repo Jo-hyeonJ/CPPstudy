@@ -139,6 +139,7 @@
     <ClInclude Include="(2023.01.25)얕은 복사 깊은복사.h" />
     <ClInclude Include="(2023.01.26)상속.h" />
     <ClInclude Include="(2023.01.27)다중상속.h" />
+    <ClInclude Include="(2023.01.30) 오버로딩, 오버라이딩.h" />
     <ClInclude Include="Computer.h" />
     <ClInclude Include="string문.h" />
   </ItemGroup>
