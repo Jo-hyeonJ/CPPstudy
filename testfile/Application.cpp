@@ -3,162 +3,82 @@
 #include <iostream> // C++ 입출력 헤더
 #include <math.h> // 루트 및 수학적 헤더
 #include <cmath> // 다른 수학 라이브러리 헤더
+#include <list>
 
 using namespace std;
 
-class Weapon
+class classA
 {
 public:
-    // 가상 함수 선언
-    virtual void Attack()
+    classA()
     {
-        cout << "공격" << endl;
-
+        cout << "class A 생성" << endl;
+    }
+    virtual ~classA()
+    {
+        cout << "class A 소멸" << endl;
     }
 
-    void Information()
-    {
-        cout << "무기의 정보" << endl;
+}; 
 
-    }
-
-};
-
-class Sword : public Weapon
+class classB : public classA
 {
 public:
-    void Attack()
+    classB()
     {
-        cout << "검으로 베기" << endl;
+        cout << "class B 생성" << endl;
+    }
+    void Hello()
+    {
+        cout << "hi" << endl;
 
     }
 
-    void Information()
+    ~classB()
     {
-        cout << "검의 정보" << endl;
-
-    }
-};
-
-class Gun : public Weapon
-{
-public:
-    void Attack()
-    {
-        cout << "총으로 쏘기" << endl;
-
-    }
-
-    void Information()
-    {
-        cout << "총의 정보" << endl;
-
-    }
-};
-
-// 캡슐화
-/*
- 객체의 속성과 함수를 하나로 묶어서 실제 구현 내용의 일부를 내부에 은닉하여
- 감추는 작업이다. 속성 값을 보호하는데에 사용된다.
-
- OOP 객체 지향 프로그래밍
- 4대 특징
- 1. 상속
- 2. 다형성
- 3. 캡슐화
- 4. 추상화
-
-*/
-
-class Car
-{
-private:
-    int speed;
-public:
-    void SetPedal(int speed)
-    {
-        if (speed >= 180)
-        {
-            speed = 180;
-        }
-        this->speed = speed;
-    
-    }
-
-    int GetSpeed()
-    {
-        return speed;
-
-    }
-
-
-};
-
-class Object
-{
-public:
-    // 순수 가상 함수
-    // 정의하지 않은 가상 함수를 만들어 하위 클래스에서 재정의하길 기대한다.
-    // 순수 가상 함수가 하나라도 포함이 되어 있다면 추상 클래스라고 정의한다.
-    virtual void A() = 0;
-
-};
-
-class NPC : public Object
-{
-    void A()
-    {
-        cout << "ㅇㄱㅇ" << endl;
+        cout << "class B 소멸" << endl;
     }
 
 };
-
 
 int main()
 {
-    // 가상 함수란?
+    // 가상 소멸자
     /*
-    // 상속하는 클래스 내에서 같은 형태의 함수로 재정의 될 수 있는 함수입니다.
-    // 바인딩을 지연시키는 형식
-    
-    // 가상 함수 테이블(vtable)
-    // 가상 함수로 정의한 함수들이 저장 되는 공간 [key/value]로 나뉘어 저장 된다.
-    //                                   [함수의. 이름/메모리 주소]
-    // 포인터 형식이기에 메모리 잡아먹는다
+    // 객체가 소멸될 때 현재 참조하고 있는 객체와 상관없이 모두 호출되는 소멸자이다.
+    // [업캐스팅]
+    classB* pb = new classB();
+    pb->Hello();
 
-    
-    Weapon* weapon = new Weapon();
-    weapon->Attack();
-
-    cout << "Weapon 클래스의 크기 : " << sizeof(weapon) << endl;
-    // 함수 뿐인 클래스라 메모리 크기는 1이여야 하지만 가상 함수 크기로 8이 잡힌다.
-
-    Gun* gun = new Gun();
-
-    weapon = gun;
-    
-    weapon->Attack();
-
-    delete weapon;
+    classA* pa = pb;
+    // ↑ 상속 관계 형식까지 가져오기 때문에 pb의 주소를 받아와도 classA를 참조한다.
+    delete pa;
     */
 
-    // 캡슐화
-    /*
-    Car car;
-    car.SetPedal(2000);
-    
-    cout << car.GetSpeed() << endl;
-    */
+    // STL (Standard Template Library)
 
-    // 순수 가상 함수란?
-    // 인터페이스를 하위 클래스에게 전달하기 위해 사용하는 함수이다.
-    // [정의 되지 않은 순수 가상 함수]가 있다면 생성할 수 없다.
-    
-    // Object object; 
-    Object* obj; // 주소값만 받은 포인터 생성은 상관x
-    NPC npc;
+    list<int> intList;
 
+    intList.push_back(10);
+    intList.push_back(20);
+    intList.push_back(30);
+    intList.push_back(40);
     
+    cout << "intList의 사이즈 : " << intList.size() << endl;
+
+    // cout << intList[0] << endl; 배열이 아니기에 [n]으로 호출이 불가능
+    
+
+    // intList.empty() : 리스트에 데이터가 비어있다면 true 반환하는 함수
+    while (intList.empty() != true)
+    {
+        // intList.front(): 리스트에 가장 앞에 있는 데이터를 출력해주는 함수
+        cout << intList.front() << endl;
+        // intList.pop_front(): 리스트 가장 앞에 있는 데이터를 제거하는 함수
+        intList.pop_front();
+    }
+
+
 
     return 0;
 }

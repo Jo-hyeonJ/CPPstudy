@@ -140,6 +140,7 @@
     <ClInclude Include="(2023.01.26)상속.h" />
     <ClInclude Include="(2023.01.27)다중상속.h" />
     <ClInclude Include="(2023.01.30) 오버로딩, 오버라이딩.h" />
+    <ClInclude Include="(2023.01.31) 가상함수와 캡슐화.h" />
     <ClInclude Include="Computer.h" />
     <ClInclude Include="string문.h" />
   </ItemGroup>
