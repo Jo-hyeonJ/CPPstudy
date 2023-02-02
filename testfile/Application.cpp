@@ -4,81 +4,128 @@
 #include <math.h> // 루트 및 수학적 헤더
 #include <cmath> // 다른 수학 라이브러리 헤더
 #include <list>
+#include <stack>
+#include <queue>
 
 using namespace std;
 
-class classA
+// 템플릿 
+// 데이터 형식에 의존하지 않고, 하나의 값이 여러 다른 데이터 타입
+// 들을 가질 수 있는 기술에 중점을 두어 재사용성을 높일 수 있는
+// 프로그래밍 방법입니다.
+
+template <typename T>
+void Calculator(T x, T y)
 {
-public:
-    classA()
-    {
-        cout << "class A 생성" << endl;
-    }
-    virtual ~classA()
-    {
-        cout << "class A 소멸" << endl;
-    }
+    cout << "x + y = " << x + y << endl;
+}
 
-}; 
-
-class classB : public classA
+// 템플릿의 특수화
+// 템플릿 함수를 사용하지만, 특정 매개변수에 대해서
+// 별도의 처리를 하고 싶을 때 사용하는 기능입니다.
+template<>
+void Calculator(const char* x, const char* y)
 {
+    cout << "x = " << x << endl;
+    cout << "y = " << y << endl;
+}
+
+template <typename T>
+class DataStruct
+{
+private:
+    T data;
+
 public:
-    classB()
+    void Push(T x)
     {
-        cout << "class B 생성" << endl;
+        cout << x << "의 값이 들어왔습니다." << endl;
     }
-    void Hello()
-    {
-        cout << "hi" << endl;
-
-    }
-
-    ~classB()
-    {
-        cout << "class B 소멸" << endl;
-    }
-
 };
+
+void DataTable(int array[], int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        cout << "array[" << i << "] = " << array[i] << endl;
+
+    }
+}
+
 
 int main()
 {
-    // 가상 소멸자
+    // 템플릿
     /*
-    // 객체가 소멸될 때 현재 참조하고 있는 객체와 상관없이 모두 호출되는 소멸자이다.
-    // [업캐스팅]
-    classB* pb = new classB();
-    pb->Hello();
+    //Calculator(10, 20);
+    //Calculator(5.6, 7.12);
+    //Calculator('A', 'B');
+    // 
+    //Calculator("count", "Down");
 
-    classA* pa = pb;
-    // ↑ 상속 관계 형식까지 가져오기 때문에 pb의 주소를 받아와도 classA를 참조한다.
-    delete pa;
+    DataStruct<char> charStruct;
+    charStruct.Push('A');
+    charStruct.Push('B');
+    charStruct.Push('C');
+    charStruct.Push('D');
     */
 
-    // STL (Standard Template Library)
+    // 스택
+    /*
+    stack<int> intStack;
 
-    list<int> intList;
+    // push() : 스택에 데이터를 저장하는 함수
+    intStack.push(1);
+    intStack.push(2);
+    intStack.push(3);
 
-    intList.push_back(10);
-    intList.push_back(20);
-    intList.push_back(30);
-    intList.push_back(40);
+    // size() : 현재 스택의 크기를 반환하는 함수
+    cout << intStack.size() << endl;
+
+    // pop() : 스택에 데이터를 제거하는 함수
+    intStack.pop();
+
+    // top() : 스택에 가장 위에 있는 데이터를 반환하는 함수
+    cout << intStack.top() << endl;
+
+    //empty() : 스택에 데이터가 비어있는지 확인하는 함수
+    cout << intStack.empty() <<endl;
     
-    cout << "intList의 사이즈 : " << intList.size() << endl;
+    stack<int> aStack;
 
-    // cout << intList[0] << endl; 배열이 아니기에 [n]으로 호출이 불가능
-    
+    aStack.push(1);
+    aStack.push(2);
+    aStack.push(3);
+    aStack.push(4);
+    aStack.push(5);
 
-    // intList.empty() : 리스트에 데이터가 비어있다면 true 반환하는 함수
-    while (intList.empty() != true)
+    while (aStack.empty() != 1)
     {
-        // intList.front(): 리스트에 가장 앞에 있는 데이터를 출력해주는 함수
-        cout << intList.front() << endl;
-        // intList.pop_front(): 리스트 가장 앞에 있는 데이터를 제거하는 함수
-        intList.pop_front();
+        cout << aStack.top() << endl;
+        aStack.pop();
+    }
+    */
+
+    // 큐
+    /*
+    queue<int> intQueue;
+
+    intQueue.push(1);
+    intQueue.push(2);
+    intQueue.push(3);
+    intQueue.push(4);
+    intQueue.push(5);
+
+    while(intQueue.empty() != 1)
+    {
+        cout << intQueue.front() << endl;
+        intQueue.pop();
     }
 
-
+    */
+    
+    int room[5] = { 1,2,3,4,5 };
+    DataTable(room, 5);
 
     return 0;
 }

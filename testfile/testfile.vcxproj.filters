@@ -59,5 +59,8 @@
     <ClInclude Include="(2023.01.31) 가상함수와 캡슐화.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="(2023.02.01)가상소멸자, 리스트.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
