@@ -3,129 +3,161 @@
 #include <iostream> // C++ 입출력 헤더
 #include <math.h> // 루트 및 수학적 헤더
 #include <cmath> // 다른 수학 라이브러리 헤더
-#include <list>
-#include <stack>
-#include <queue>
+#include <vector>
+#include <random>
+#include <conio.h>
 
 using namespace std;
 
-// 템플릿 
-// 데이터 형식에 의존하지 않고, 하나의 값이 여러 다른 데이터 타입
-// 들을 가질 수 있는 기술에 중점을 두어 재사용성을 높일 수 있는
-// 프로그래밍 방법입니다.
-
-template <typename T>
-void Calculator(T x, T y)
-{
-    cout << "x + y = " << x + y << endl;
-}
-
-// 템플릿의 특수화
-// 템플릿 함수를 사용하지만, 특정 매개변수에 대해서
-// 별도의 처리를 하고 싶을 때 사용하는 기능입니다.
-template<>
-void Calculator(const char* x, const char* y)
-{
-    cout << "x = " << x << endl;
-    cout << "y = " << y << endl;
-}
-
-template <typename T>
-class DataStruct
-{
-private:
-    T data;
-
-public:
-    void Push(T x)
-    {
-        cout << x << "의 값이 들어왔습니다." << endl;
-    }
-};
-
-void DataTable(int array[], int size)
-{
-    for (int i = 0; i < size; i++)
-    {
-        cout << "array[" << i << "] = " << array[i] << endl;
-
-    }
-}
-
+#define UP 72
+#define LEFT 75
+#define RIGHT 77
+#define DOWN 80
 
 int main()
 {
-    // 템플릿
+    // [컨트롤 + H] 전체 대체
+
+    // 벡터
     /*
-    //Calculator(10, 20);
-    //Calculator(5.6, 7.12);
-    //Calculator('A', 'B');
-    // 
-    //Calculator("count", "Down");
+    // 동적으로 연속적인 메모리를 할당하고 실행 시간에
+    // 메모리 크기를 변동 할 수 있는 컨테이너이다.
+    // 1.배열과 다르게 동적 메모리를 할당 받기에 힙 영역에 메모리를 할당 받는다.
+    // 2.메모리 크기가 변동 되면 기존 주소를 할당 해제하고 새로운 시작 주소를 갖는다.
+    // 3. 변동 시 기존의 구조를 그대로 복사하기 때문에
+    //    뒷부분으로만 데이터의 추가제거가 가능하다.
 
-    DataStruct<char> charStruct;
-    charStruct.Push('A');
-    charStruct.Push('B');
-    charStruct.Push('C');
-    charStruct.Push('D');
-    */
+    vector<int> intVector;
 
-    // 스택
-    /*
-    stack<int> intStack;
+    // push_back() : 벡터의 메모리 가장 끝에 값을 저장하는 함수
 
-    // push() : 스택에 데이터를 저장하는 함수
-    intStack.push(1);
-    intStack.push(2);
-    intStack.push(3);
+    intVector.push_back(100);
+    intVector.push_back(200);
+    intVector.push_back(300);
+    intVector.push_back(400);
+    intVector.push_back(500);
 
-    // size() : 현재 스택의 크기를 반환하는 함수
-    cout << intStack.size() << endl;
-
-    // pop() : 스택에 데이터를 제거하는 함수
-    intStack.pop();
-
-    // top() : 스택에 가장 위에 있는 데이터를 반환하는 함수
-    cout << intStack.top() << endl;
-
-    //empty() : 스택에 데이터가 비어있는지 확인하는 함수
-    cout << intStack.empty() <<endl;
     
-    stack<int> aStack;
 
-    aStack.push(1);
-    aStack.push(2);
-    aStack.push(3);
-    aStack.push(4);
-    aStack.push(5);
-
-    while (aStack.empty() != 1)
+    for (int i = 0; i < intVector.size(); i++)
     {
-        cout << aStack.top() << endl;
-        aStack.pop();
-    }
-    */
+        cout << intVector[i] << endl;
 
-    // 큐
-    /*
-    queue<int> intQueue;
-
-    intQueue.push(1);
-    intQueue.push(2);
-    intQueue.push(3);
-    intQueue.push(4);
-    intQueue.push(5);
-
-    while(intQueue.empty() != 1)
-    {
-        cout << intQueue.front() << endl;
-        intQueue.pop();
     }
 
+    // pop_back() : 벡터의 메모리 가장 끝의 값을 제거하는 함수.
+    intVector.pop_back();
+    intVector.pop_back();
+    intVector.pop_back();
+    intVector.pop_back();
+    intVector.pop_back();
+
+    cout << "벡터의 메모리는 비어있는가? " << intVector.empty() << endl;
+
+    cout << "벡터의 메모리 크기는? " << intVector.size() << endl;
+
+    cout << "벡터의 메모리가 할당 된 공간 : " << intVector.capacity() << endl;
     */
+
+    // 리듬 게임
+
+    srand(time(NULL));
+    vector<string> arrow = {"↑", "←", "↓", "→"};
+    vector<string> Q = {"1", "1", "1", "1", "1"};
     
-    int room[5] = { 1,2,3,4,5 };
-    DataTable(room, 5);
+    char key;
+    int mode = 0;
+    int nan = 5;
+
+
+    while (1)
+    {
+        
+        while (mode == 0)
+        {
+            for (int i = nan - 1; i >= 0; i--)
+            {
+                int ar = rand() % 4;
+
+                cout << arrow[ar] << "  를 입력하세요." << endl;
+
+                Q[i] = arrow[ar];
+
+            }
+
+            // 난이도 조절
+            if (nan > 10)
+            {
+                nan = 10;
+            }
+
+
+            // 모드 변경
+            mode = 1;
+        }
+
+        while (mode == 1)
+        {
+            // 키입력
+            if (_kbhit())
+            {
+                key = _getch();
+
+                switch (key)
+                {
+                case UP:
+                    cout << "↑  ";
+                    if ("↑" == Q.back())
+                    {
+                        Q.pop_back();
+                    }
+                    break;
+
+                case LEFT:
+                    cout << "←  ";
+                    if ("←" == Q.back())
+                    {
+                        Q.pop_back();
+                    }
+                    break;
+
+                case RIGHT:
+                    cout << "→  ";
+                    if ("→" == Q.back())
+                    {
+                        Q.pop_back();
+                    }
+                    break;
+
+                case DOWN:
+                    cout << "↓  ";
+                    if ("↓" == Q.back())
+                    {
+                        Q.pop_back();
+                    }
+                    break;
+                }
+            }
+
+            
+            if (Q.empty() == 1)
+            {
+                cout << endl<< "잘했어오" << endl;
+
+                cout << "다시!" << endl;
+                
+                Q = { "1", "1", "1", "1", "1" };
+                mode = 0;
+            }
+
+
+        }
+
+        
+
+    }
+
+
 
     return 0;
 }
