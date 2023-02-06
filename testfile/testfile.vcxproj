@@ -143,6 +143,7 @@
     <ClInclude Include="(2023.01.31) 가상함수와 캡슐화.h" />
     <ClInclude Include="(2023.02.01)가상소멸자, 리스트.h" />
     <ClInclude Include="(2023.02.02)템플릿, 큐, 스택.h" />
+    <ClInclude Include="(2023.02.03)벡터.h" />
     <ClInclude Include="Computer.h" />
     <ClInclude Include="string문.h" />
   </ItemGroup>
