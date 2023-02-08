@@ -3,117 +3,141 @@
 #include <iostream> // C++ 입출력 헤더
 #include <math.h> // 루트 및 수학적 헤더
 #include <cmath> // 다른 수학 라이브러리 헤더
-#include <map>
-#include <set>
+
 
 using namespace std;
 
+class Person
+{
+public:
+
+
+    virtual void Talk()
+    {
+        cout << "말하기" << endl;
+    }
+};
+
+class Student : public Person
+{
+public:
+    void Study()
+    {
+        cout << "학습 중~" << endl;
+    }
+    // 함수에 붙일 때 : 특정한 위치까지만 함수 재정의를 제한하는 키워드이다.
+    // 클래스에 붙일 때 : 상속을 제한하는 키워드이다. 
+    void Talk() final
+    {
+        cout << "학생이 질문한다." << endl;
+    }
+
+};
+//                  ↓ 이후 클래스를 상속 시킬 수 없다.
+class ModelStudent final : public Student
+{
+public:
+   
+    int lala;
+
+};
+
+class A
+{
+public : 
+    void AClass()
+    {
+        cout << "A 클래스입니다." << endl;
+    }
+    virtual void Attack()
+    {
+        cout << "공격" << endl;
+    }
+
+    virtual void move()
+    {
+        cout << "이동" << endl;
+    }
+};
+class B : public A
+{
+public :
+    void BClass()
+    {
+        
+        cout << "B 클래스입니다." << endl;
+    }
+    void Attack()
+    {
+        cout << "칼 들고 공격" << endl;
+    }
+
+    void move()
+    {
+        cout << "칼 들고 이동" << endl;
+    }
+
+
+};
+
+// 서치 키워드 : 스마트 포인터
+
 int main()
 {
-    // map(맵)
+    // final 키워드
     /*
-    // key와 value로 데이터를 저장시키는 자료 구조이다.
-    // 연관 컨테이너 중 트리구조로 최상위 노드에서 파생된 2가지 값을 연결시킨 구조이다.
-    // key값을 오름차순으로 정렬한 순서를 가진다.
-    // 시간복잡도 O(logN)
+    // 상속 받는 대상에게 오버라이딩 시키지 않고 싶은 속성에게 부여하는 키워드
+    // 이후 상속 받는 대상은 final 키워드를 받은 속성을 상속 받되 수정할 수 없다.
 
-    // key값과 value값 2가지 값을 가지기에 선언할 때 자료형을 2개 선언한다.
-    // 연관 컨테이너는 key값이 중복될 수 없다.
-    // 다만 value값은 중복이 가능하다.
-    // value값을 class로 넣은 뒤 엑셀 파일을 삽입하면 다수의 데이터와 연동 가능하다.
+    Person person;
+    Student student;
+    ModelStudent MS;
 
-    map<string, int> mapData;
-
-    mapData.insert(pair<string, int>("검", 100));
-    mapData.insert(pair<string, int>("갑옷", 200));
-    mapData.insert(pair<string, int>("투구", 300));
-    mapData.insert(pair<string, int>("신발", 400));
-    mapData.insert(pair<string, int>("장갑", 500));
-    mapData.insert(pair<string, int>("각반", 500)); // '각'반 데이터 최상단에 위치
-
-    // 반복자(iterator)
-    map<string, int> ::iterator iter;
-
-    // begin() : map 데이터의 시작 주소를 반환한다.
-    // mapData.begin();
-
-    // end() : map 데이터의 마지막 뒤에 있는 주소를 반환한다. 최후에서 -1
-
-    
-    for (iter = mapData.begin(); iter != mapData.end(); iter++)
-    {
-        // iter->first : key를 의미한다.
-        cout << "key 값 : " << iter->first << endl;
-        cout << "value 값 : " << iter->second << endl;
-
-    }
-
-    // mapData.find("검");
-    // find() : map에 있는 key값이 존재하는지 확인하는 함수이다.
-    // find는 begin위치에서 end까지 key값을 순회하며 가진다.
-
-    //   ↓map에서 데이터를 찾을 때 iterator를 사용하여 내부에 데이터를 찾는 식
-    if (mapData.find("검") != mapData.end())
-    {
-        cout << "key 값 검이 있습니다." << endl;
-
-    }
-    else
-    {
-        cout << "key값이 없습니다.";
-    }
-
-    //                  ↓역순으로 출력하는 이터레이터
-    map<string, int> ::reverse_iterator r_iter;
-
-    cout << "-------------------------------" << endl;
-
-    for (r_iter = mapData.rbegin(); r_iter != mapData.rend(); r_iter++)
-    {
-        // iter->first : key를 의미한다.
-        cout << "key 값 : " << r_iter->first << endl;
-        cout << "value 값 : " << r_iter->second << endl;
-
-    }
+    cout << "Person의 크기 : " << sizeof(person) << endl;
+    cout << "Student의 크기 : " << sizeof(student) << endl;
+    cout << "ModelStudent의 크기 : " << sizeof(MS) << endl;
     */
 
-    // 서치 키워드 : 최대 힙, 최소 힙
+    // 업캐스팅 [상위 클래스 <- 하위 클래스]
+    /*
+    // 하위 클래스의 정보를 담을 수 있는 객체에 상위 클래스의 자료형을 부여해서
+    // 상위클래스처럼 사용하는 캐스팅이다.
 
-    // set
-    // 이진 트리 구조로 반드시 2개의 값을 가져야하는 자료 구조이다.
-    // 최상위 노드에서부터 2개의 자식 노드를 파생시켜 연결하는 구조.
-    // 최상위 노드의 데이터가 빠질 경우 연결이 해제되도 상관 없는 최하위 노드의 데이터
-    // 값을 가져온 뒤 값을 비교하여 재정렬한다. (힙힙)
+    A* aptr = new A();
+    B* bptr = new B();
+    aptr = bptr;
+    aptr->BClass();
+    // B의 주소를 담았지만 BClass의 함수를 사용하지 못함
+    */
 
-    set<int> setData;
+    // 다운 캐스팅 [하위 클래스 <- 상위 클래스]
+    /*
+    // 하위의 클래스에 상위 클래스를 삽입하는건 강제적 형변환이 필요하다.
+    // 참조하는 형태에 맞는 함수 정의만을 사용 할 수 있지만
+    // 가상 함수를 활용하여 변화를 줄 수 있다.
+    
+    B* bptr = (B*)new A;
+    bptr->Attack();
+    bptr->move();
 
-    setData.insert(10);
-    setData.insert(10); // 중복은 허용 되지 않으며 실제 데이터 값에 포함 되지 않음
-    setData.insert(20);
-    setData.insert(30);
-    setData.insert(40);
-    setData.insert(50);
+    int select = 0;
+    cin >> select;
 
-    set<int>::iterator iter;
+    A* aptr = nullptr;
 
-    for (iter = setData.begin(); iter != setData.end(); iter++)
+    switch (select)
     {
-        cout << *iter << endl;
-
+    case 1:
+        aptr = new B();
+        break;
     }
 
-    iter = setData.find(50);
+    aptr->Attack();
 
-    if (iter != setData.end())
-    {
-        cout << "값을 찾았다." << endl;
-    }
-    else
-    {
-        cout << "값을 찾지못하였다." << endl;
-    }
 
-    cout << "set 데이터의 크기는 : " << setData.size() << endl;
+    delete bptr;
+
+    */
 
     return 0;
 }
