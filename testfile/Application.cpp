@@ -3,140 +3,108 @@
 #include <iostream> // C++ 입출력 헤더
 #include <math.h> // 루트 및 수학적 헤더
 #include <cmath> // 다른 수학 라이브러리 헤더
-
+#include <memory>
 
 using namespace std;
 
-class Person
+class Player
 {
 public:
 
+    weak_ptr<Player> wPtr;
 
-    virtual void Talk()
-    {
-        cout << "말하기" << endl;
-    }
-};
 
-class Student : public Person
-{
-public:
-    void Study()
+    int health;
+    
+    Player()
     {
-        cout << "학습 중~" << endl;
+        cout << "플레이어 생성" << endl;
     }
-    // 함수에 붙일 때 : 특정한 위치까지만 함수 재정의를 제한하는 키워드이다.
-    // 클래스에 붙일 때 : 상속을 제한하는 키워드이다. 
-    void Talk() final
+
+
+    ~Player()
     {
-        cout << "학생이 질문한다." << endl;
+        //cout << health << endl;
+        cout << "플레이어 소멸" << endl;
     }
 
 };
-//                  ↓ 이후 클래스를 상속 시킬 수 없다.
-class ModelStudent final : public Student
-{
-public:
-   
-    int lala;
-
-};
-
-class A
-{
-public : 
-    void AClass()
-    {
-        cout << "A 클래스입니다." << endl;
-    }
-    virtual void Attack()
-    {
-        cout << "공격" << endl;
-    }
-
-    virtual void move()
-    {
-        cout << "이동" << endl;
-    }
-};
-class B : public A
-{
-public :
-    void BClass()
-    {
-        
-        cout << "B 클래스입니다." << endl;
-    }
-    void Attack()
-    {
-        cout << "칼 들고 공격" << endl;
-    }
-
-    void move()
-    {
-        cout << "칼 들고 이동" << endl;
-    }
-
-
-};
-
-// 서치 키워드 : 스마트 포인터
 
 int main()
 {
-    // final 키워드
-    /*
-    // 상속 받는 대상에게 오버라이딩 시키지 않고 싶은 속성에게 부여하는 키워드
-    // 이후 상속 받는 대상은 final 키워드를 받은 속성을 상속 받되 수정할 수 없다.
-
-    Person person;
-    Student student;
-    ModelStudent MS;
-
-    cout << "Person의 크기 : " << sizeof(person) << endl;
-    cout << "Student의 크기 : " << sizeof(student) << endl;
-    cout << "ModelStudent의 크기 : " << sizeof(MS) << endl;
-    */
-
-    // 업캐스팅 [상위 클래스 <- 하위 클래스]
-    /*
-    // 하위 클래스의 정보를 담을 수 있는 객체에 상위 클래스의 자료형을 부여해서
-    // 상위클래스처럼 사용하는 캐스팅이다.
-
-    A* aptr = new A();
-    B* bptr = new B();
-    aptr = bptr;
-    aptr->BClass();
-    // B의 주소를 담았지만 BClass의 함수를 사용하지 못함
-    */
-
-    // 다운 캐스팅 [하위 클래스 <- 상위 클래스]
-    /*
-    // 하위의 클래스에 상위 클래스를 삽입하는건 강제적 형변환이 필요하다.
-    // 참조하는 형태에 맞는 함수 정의만을 사용 할 수 있지만
-    // 가상 함수를 활용하여 변화를 줄 수 있다.
+    // 스마트 포인터 [메모리 누수를 막는 포인터]
+    // 포인터처럼 동작하는 클래스 템플릿으로 사용이 끝난 메모리를
+    // 자동으로 해제하는 포인터이다.
+    // 포인터 함수가 스택 영역에서 제거 될 때 할당된 힙의 메모리도 같이 해제한다.
+    // 1. 유니크 포인터 2. 쉐어드 포인터 3. 위크 포인터
     
-    B* bptr = (B*)new A;
-    bptr->Attack();
-    bptr->move();
+    // 유니크 포인터(unique_ptr)
+    /*
+    #pragma region 유니크 포인터(unique_ptr)
 
-    int select = 0;
-    cin >> select;
+    // 하나의 유니크 포인터가 하나의 메모리 소유권만 가질 수 있는 포인터
+    // 유니크 포인터끼리의 얕은 복사가 이뤄지지 않게 제한된다.
 
-    A* aptr = nullptr;
+    // C++식 표기법 [int = 10] = [int(10)]
+    // unique_ptr<int> uPtr(new int(10));
 
-    switch (select)
+    // = int * uPtr = new int(10);
+
+    // unique_ptr<int> uPtr1 = uPtr; 
+    // 다른 유니크 포인터가 할당 받은 메모리는 할당 받을 수 없음
+
+    unique_ptr<Player> uPtr(new Player);
+    uPtr->health = 100;
+    // move 함수를 이용하여 소유권을 이전 시킬 수 있다.
+    unique_ptr<Player> uPtr1 = std::move(uPtr);
+#pragma endregion;
+*/
+
+
+    // 쉐어드 포인터(shared_ptr)
+    /*
+    // [어떤 하나의 객체를 참조하는 스마트 포인터의 갯수]를 참조하는 포인터이다.
+    // →참조 카운트를 참조하는 포인터
+    // 참조 카운트가 0이 되면 스스로 메모리를 해제한다.
+
+    // 참조 카운트(Reference Counting)
+    // 해당 메모리를 참조하는 포인터가 몇개가 있는 지 나타내는 값이다.
+
+    // 서로가 서로를 참조하는 순환 참조 발생 시, 해제 되지 않아
+    // 스마트 포인터로써 기능을 잃는다. 이는 weak 포인터 사용으로 해결한다.
+
+    // 첫 번째 초기화 방법
+    // shared_ptr<int> sPtr(new int(5));
+
+    // 두 번째 초기화 방법
+    // shared_ptr<int> sPtr1 = make_shared<int>(5);
+
+    shared_ptr<Player> ptr1(new Player);
+
     {
-    case 1:
-        aptr = new B();
-        break;
+        shared_ptr<Player> ptr2 = ptr1;
+        cout << "ptr2의 참조 카운트 : " << ptr2.use_count() << endl;
     }
+    cout << "ptr1의 참조 카운트 : " << ptr1.use_count() << endl;
+    */
 
-    aptr->Attack();
+    // 위크 포인터 (weak_ptr)
+    /*
+    // 하나 이상의 쉐어드 포인터 인스턴스가 소유하는 객체에 대한 접근을 제공하지만,
+    // 참조 카운트에 포함 되지 않는 스마트 포인터이다.
 
+    // weak_ptr<Player> wPtr;
 
-    delete bptr;
+    shared_ptr<Player> player1(new Player);
+    shared_ptr<Player> player2(new Player);
 
+    cout << "player1" << player1.use_count() << endl;
+    cout << "player2" << player1.use_count() << endl;
+
+    player1->wPtr = player2;
+    player2->wPtr = player1;
+
+    // 순환 참조 중인 메모리들도 해제가 가능하다.
     */
 
     return 0;
