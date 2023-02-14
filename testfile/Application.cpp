@@ -13,38 +13,61 @@ struct Node
     Node* next;
 };
 
+void Insert(Node* target, int data)
+{
+    Node* newNode = new Node;
+    newNode->data = data;
+
+    newNode->next = target->next;
+    target->next = newNode;
+}
+
+void deleteptr(Node* target)
+{
+    Node* removePtr = target->next;
+    target->next = removePtr->next;
+    delete removePtr;
+}
+
+void sizeptr(Node* target)
+{
+    int count = 0;
+    
+    Node* currentptr = target->next;
+
+    while (currentptr != NULL)
+    {
+        count++;
+        
+        currentptr = currentptr->next;
+    }
+    cout << "리스트의 크기 : " << count << endl;
+
+}
 
 int main()
 {
-    Node* node = new Node;
-    Node* node1 = new Node;
-    Node* node2 = new Node;
+    Node* head = new Node;
 
-    node->next = node1;
+    head->next = NULL;
 
-    node1->data = 10;
-    node1->next = node2;
+    Insert(head, 10);
+    Insert(head, 20);
+    Insert(head, 30);
+    
+    deleteptr(head);
 
-    node2->data = 20;
-    node2->next = nullptr;
+    Node* currentptr = head->next;
 
-
-    //리스트 순회
-
-    Node* currentPointer = node->next;
-
-    while (currentPointer != NULL)
+    while (currentptr != NULL)
     {
+        cout << currentptr->data << endl;
         
-        cout << currentPointer->data << endl;
-        currentPointer = currentPointer->next;
+        currentptr = currentptr->next;
     }
 
-    delete node;
-
-    delete node1;
-
-    delete node2;
+    sizeptr(head);
+    
 
     return 0;
 }
