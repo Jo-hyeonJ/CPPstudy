@@ -11,63 +11,136 @@ struct Node
 {
     int data;
     Node* next;
+    Node* prev;
+
 };
 
-void Insert(Node* target, int data)
+void sort(Node* head, Node* tail)
+{
+
+    Node* ptr1 = head->next;
+    Node* ptr2;
+
+    // 이전 노드 정렬
+    while (ptr1->next != NULL)
+    {
+        ptr2 = ptr1->next;
+        ptr2->prev = ptr1;
+
+        ptr1 = ptr1->next;
+    }
+
+    ptr1 = tail->prev;
+    // 다음 노드 정렬
+    while (ptr1->prev != NULL)
+    {
+        ptr2 = ptr1->prev;
+        ptr2->next = ptr1;
+
+        ptr1 = ptr1->prev;
+    }
+
+
+}
+
+void InsertF(Node* head, int data)
 {
     Node* newNode = new Node;
+    Node* DNode;
+    
     newNode->data = data;
 
-    newNode->next = target->next;
-    target->next = newNode;
+    DNode = head->next;
+
+
+    newNode->next = head->next;
+    newNode->prev = head;
+    head->next = newNode;
+    DNode->prev = newNode;
+
 }
 
-void deleteptr(Node* target)
+void InsertB(Node* tail, int data)
 {
-    Node* removePtr = target->next;
-    target->next = removePtr->next;
-    delete removePtr;
+    Node* newNode = new Node;
+    Node* DNode;
+    newNode->data = data;
+
+    DNode = tail->prev;
+
+    newNode->prev = tail->prev;
+    newNode->next = tail;
+    tail->prev = newNode;
+    DNode->next = newNode;
 }
 
-void sizeptr(Node* target)
-{
-    int count = 0;
-    
-    Node* currentptr = target->next;
 
-    while (currentptr != NULL)
+void printnodeF(Node* target)
+{
+    Node* curptr = target->next;
+
+    cout << "앞에서부터 읽은 데이터는 : " << endl;
+
+    while (curptr->next != NULL)
     {
-        count++;
-        
-        currentptr = currentptr->next;
-    }
-    cout << "리스트의 크기 : " << count << endl;
 
+        cout << curptr->data << endl;
+        curptr = curptr->next;
+    }
 }
+void printnodeB(Node* target)
+{
+    Node* curptr = target->prev;
+
+    cout << "뒤에서 부터 읽은 데이터는" << endl;
+    while (curptr->prev != NULL)
+    {
+        cout << curptr->data << endl;
+        curptr = curptr->prev;
+    }
+}
+
+
 
 int main()
 {
     Node* head = new Node;
-
-    head->next = NULL;
-
-    Insert(head, 10);
-    Insert(head, 20);
-    Insert(head, 30);
+    Node* tail = new Node;
+    head->prev = NULL;
+    head->next = tail;
     
-    deleteptr(head);
+    tail->next = NULL;
+    tail->prev = head;
 
-    Node* currentptr = head->next;
+    /*
+    Node* node1 = new Node;
+    Node* node2 = new Node;
+    Node* node3 = new Node;
 
-    while (currentptr != NULL)
-    {
-        cout << currentptr->data << endl;
-        
-        currentptr = currentptr->next;
-    }
+    node1->data = 10;
+    node2->data = 20;
+    node3->data = 30;
 
-    sizeptr(head);
-    
+    node1->next = node2;
+    node2->next = node3;
+    node3->next = tail;
+  
+    node1->prev = head;
+    node2->prev = node1;
+    node3->prev = node2;
+    */
+
+    InsertF(head, 10);
+    InsertF(head, 20);
+    InsertF(head, 30);
+    InsertB(tail, 40);
+    InsertB(tail, 50);
+    InsertB(tail, 60);
+
+    printnodeF(head);
+    printnodeB(tail);
+
+
 
     return 0;
 }
