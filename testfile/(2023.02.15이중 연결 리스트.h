@@ -1,3 +1,4 @@
+#pragma once
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream> // C++ 입출력 헤더
@@ -99,23 +100,7 @@ void printnodeB(Node* target)
         curptr = curptr->prev;
     }
 }
-// 매개변수 : 헤드와 삭제할 노드 넘버
-void Remove(Node* head, int num)
-{
 
-    Node* removePoint = head->next;
-
-    for (int i = 1; i < num; i++)
-    {
-        removePoint = removePoint->next;
-    }
-    
-    removePoint->prev->next = removePoint->next;
-    removePoint->next->prev = removePoint->prev;
-
-    delete removePoint;
-
-}
 
 
 int main()
@@ -146,14 +131,12 @@ int main()
     node3->prev = node2;
     */
 
-    InsertF(head, 30);
-    InsertF(head, 20);
     InsertF(head, 10);
+    InsertF(head, 20);
+    InsertF(head, 30);
     InsertB(tail, 40);
     InsertB(tail, 50);
     InsertB(tail, 60);
-
-    Remove(head, 3);
 
     printnodeF(head);
     printnodeB(tail);
@@ -162,14 +145,4 @@ int main()
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
 
