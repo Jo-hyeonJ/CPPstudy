@@ -7,156 +7,44 @@
 
 using namespace std;
 
-struct Node
-{
-    int data;
-    Node* next;
-    Node* prev;
-
-};
-
-void sort(Node* head, Node* tail)
-{
-
-    Node* ptr1 = head->next;
-    Node* ptr2;
-
-    // 이전 노드 정렬
-    while (ptr1->next != NULL)
-    {
-        ptr2 = ptr1->next;
-        ptr2->prev = ptr1;
-
-        ptr1 = ptr1->next;
-    }
-
-    ptr1 = tail->prev;
-    // 다음 노드 정렬
-    while (ptr1->prev != NULL)
-    {
-        ptr2 = ptr1->prev;
-        ptr2->next = ptr1;
-
-        ptr1 = ptr1->prev;
-    }
-
-
-}
-
-void InsertF(Node* head, int data)
-{
-    Node* newNode = new Node;
-    Node* DNode;
-
-    newNode->data = data;
-
-    DNode = head->next;
-
-
-    newNode->next = head->next;
-    newNode->prev = head;
-    head->next = newNode;
-    DNode->prev = newNode;
-
-}
-
-void InsertB(Node* tail, int data)
-{
-    Node* newNode = new Node;
-    Node* DNode;
-    newNode->data = data;
-
-    DNode = tail->prev;
-
-    newNode->prev = tail->prev;
-    newNode->next = tail;
-    tail->prev = newNode;
-    DNode->next = newNode;
-}
-
-
-void printnodeF(Node* target)
-{
-    Node* curptr = target->next;
-
-    cout << "앞에서부터 읽은 데이터는 : " << endl;
-
-    while (curptr->next != NULL)
-    {
-
-        cout << curptr->data << endl;
-        curptr = curptr->next;
-    }
-}
-void printnodeB(Node* target)
-{
-    Node* curptr = target->prev;
-
-    cout << "뒤에서 부터 읽은 데이터는" << endl;
-    while (curptr->prev != NULL)
-    {
-        cout << curptr->data << endl;
-        curptr = curptr->prev;
-    }
-}
-// 매개변수 : 헤드와 삭제할 노드 넘버
-void Remove(Node* head, int num)
-{
-
-    Node* removePoint = head->next;
-
-    for (int i = 1; i < num; i++)
-    {
-        removePoint = removePoint->next;
-    }
-    
-    removePoint->prev->next = removePoint->next;
-    removePoint->next->prev = removePoint->prev;
-
-    delete removePoint;
-
-}
-
-
 int main()
 {
-    Node* head = new Node;
-    Node* tail = new Node;
-    head->prev = NULL;
-    head->next = tail;
+    // 정렬 알고리즘 [성능과 난이도는 비례함]
+    // 난이도 하 : 거품 정렬, 선택 정렬, 삽입 정렬
+    //  중 : 퀵 정렬, 계수 정렬, 힙 정렬, 병합 정렬
+    //  상 : 토폴로지 정렬, 기수 정렬
 
-    tail->next = NULL;
-    tail->prev = head;
+    // 거품 정렬
+    // 서로 인접한 두 원소의 대소를 비료하여, 조건에 맞지 않다면 자리를
+    // 교환하여 정렬하는 알고리즘이다.
+    // 시간 복잡도(O n²)
 
-    /*
-    Node* node1 = new Node;
-    Node* node2 = new Node;
-    Node* node3 = new Node;
+    int array[5] = {7, 43, 1, 11, 3};
+    
+   
+    for (int c = 4; c != 0; c--)
+    {
+        for (int i = 0; i < c; i++)
+        {
+            if (array[i] > array[i + 1])
+            {
+                /*
+                int temp = array[i];
+                array[i] = array[i + 1];
+                array[i + 1] = temp;
+                */ // 스왑문
+                swap(array[i], array[i + 1]);
+            }
+   
+        }
+    }
+   
+       
+    for (int i = 0; i <= 4; i++)
+        cout << array[i] << endl;
 
-    node1->data = 10;
-    node2->data = 20;
-    node3->data = 30;
 
-    node1->next = node2;
-    node2->next = node3;
-    node3->next = tail;
 
-    node1->prev = head;
-    node2->prev = node1;
-    node3->prev = node2;
-    */
-
-    InsertF(head, 30);
-    InsertF(head, 20);
-    InsertF(head, 10);
-    InsertB(tail, 40);
-    InsertB(tail, 50);
-    InsertB(tail, 60);
-
-    Remove(head, 3);
-
-    printnodeF(head);
-    printnodeB(tail);
 
 
 
