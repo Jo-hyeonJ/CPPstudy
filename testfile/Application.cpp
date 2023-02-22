@@ -11,76 +11,77 @@ using namespace std;
 
 #define SIZE 5
 
+// 원형 큐 (CircleQueue)
 class Queue
 {
- private:
-     int front = SIZE;
-     int rear = SIZE;
+private:
+    int front = SIZE - 1;
+    int rear = SIZE - 1;
 
- public:
-     int buffer[SIZE] = { 0, };
+public:
+    int buffer[SIZE] = { 0, };
 
-     bool Empty()
-     {
-         if (front == rear)
-         {
-             return true;
-         }
-         else
-         {
-             return false;
-         }
-     }
+    bool Empty()
+    {
+        if (front == rear)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-     bool IsFull()
-     {
-         if ((rear)%SIZE == front)
-         {
-             return true;
-         }
-         else
-         {
-             return false;
-         }
-     }
+    bool IsFull()
+    {
+        if ((rear + 1) % SIZE == front)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-     void Enqueue(int data)
-     {
-         // 큐가 다 차있으면 데이터를 넣을 수 없도록 처리
-         if (IsFull() == true)
-         {
-             cout << "CircleQueue Is Full" << endl;
+    void Enqueue(int data)
+    {
+        // 큐가 다 차있으면 데이터를 넣을 수 없도록 처리
+        if (IsFull() == true)
+        {
+            cout << "CircleQueue Is Full" << endl;
 
-         }
-         else
-         {
-             buffer[(rear)%SIZE] = data;
-             rear = (rear) % SIZE;
-             
-         }
+        }
+        else
+        {
+            buffer[(rear + 1) % SIZE] = data;
+            rear = (rear + 1) % SIZE;
 
-     }
+        }
 
-     int Dequeue()
-     {
-         // 큐가 비어있으면 데이터를 뺄 수 없도록 처리
-         if (Empty() == true)
-         {
-             cout << "CircleQueue is Empty" << endl;
+    }
 
-         }
-         else
-         {
-             int temp;
-             temp = buffer[(front)%SIZE];
-             buffer[(front)%SIZE] = NULL;
-             front = (front) % SIZE;
+    int Dequeue()
+    {
+        // 큐가 비어있으면 데이터를 뺄 수 없도록 처리
+        if (Empty() == true)
+        {
+            cout << "CircleQueue is Empty" << endl;
 
-             // 임시 변수 return
-             return temp;
-            
-         }
-     }
+        }
+        else
+        {
+            int temp;
+            temp = buffer[(front + 1) % SIZE];
+            buffer[(front + 1) % SIZE] = NULL;
+            front = (front + 1) % SIZE;
+
+            // 임시 변수 return
+            return temp;
+
+        }
+    }
 };
 
  int main()
