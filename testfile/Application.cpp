@@ -14,8 +14,8 @@ using namespace std;
 class Queue
 {
  private:
-     int front = -1;
-     int rear = -1;
+     int front = SIZE;
+     int rear = SIZE;
 
  public:
      int buffer[SIZE] = { 0, };
@@ -34,7 +34,7 @@ class Queue
 
      bool IsFull()
      {
-         if (rear == SIZE - 1)
+         if ((rear)%SIZE == front)
          {
              return true;
          }
@@ -49,12 +49,14 @@ class Queue
          // 큐가 다 차있으면 데이터를 넣을 수 없도록 처리
          if (IsFull() == true)
          {
-             cout << "Queue Is Full" << endl;
+             cout << "CircleQueue Is Full" << endl;
 
          }
          else
          {
-             buffer[++rear] = data;
+             buffer[(rear)%SIZE] = data;
+             rear = (rear) % SIZE;
+             
          }
 
      }
@@ -64,14 +66,15 @@ class Queue
          // 큐가 비어있으면 데이터를 뺄 수 없도록 처리
          if (Empty() == true)
          {
-             cout << "Queue is Empty" << endl;
+             cout << "CircleQueue is Empty" << endl;
 
          }
          else
          {
              int temp;
-             temp = buffer[++front];
-             buffer[front] = NULL;
+             temp = buffer[(front)%SIZE];
+             buffer[(front)%SIZE] = NULL;
+             front = (front) % SIZE;
 
              // 임시 변수 return
              return temp;
@@ -89,7 +92,33 @@ class Queue
      queue.Enqueue(30);
      queue.Enqueue(40);
      queue.Enqueue(50);
-     queue.Enqueue(60);
+     
+
+     while (!queue.Empty())
+     {
+         cout << queue.Dequeue() << endl;
+     }
+     queue.Enqueue(10);
+     queue.Enqueue(20);
+     queue.Enqueue(30);
+     queue.Enqueue(40);
+     queue.Enqueue(50);
+
+
+
+     while (!queue.Empty())
+     {
+         cout << queue.Dequeue() << endl;
+
+
+     }
+     queue.Enqueue(10);
+     queue.Enqueue(20);
+     queue.Enqueue(30);
+     queue.Enqueue(40);
+     queue.Enqueue(50);
+
+
 
      while (!queue.Empty())
      {
