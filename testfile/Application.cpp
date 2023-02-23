@@ -11,31 +11,31 @@ using namespace std;
 
 #define SIZE 5
 
-// 원형 큐 (CircleQueue)
-class Queue
+class Stack
 {
 private:
-    int front = SIZE - 1;
-    int rear = SIZE - 1;
+    int top = - 1;
+    int buffer[SIZE] = { 0, };
+    
 
 public:
-    int buffer[SIZE] = { 0, };
-
+    
     bool Empty()
     {
-        if (front == rear)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+         if(top == -1)
+         {
+           return true;
+         }
+         else
+         {
+           return false;
+         }
+
     }
 
     bool IsFull()
     {
-        if ((rear + 1) % SIZE == front)
+        if (top == SIZE - 1)
         {
             return true;
         }
@@ -43,90 +43,54 @@ public:
         {
             return false;
         }
+ 
     }
 
-    void Enqueue(int data)
+    void Push(int data)
     {
-        // 큐가 다 차있으면 데이터를 넣을 수 없도록 처리
         if (IsFull() == true)
         {
-            cout << "CircleQueue Is Full" << endl;
-
+            cout << "Stack is Full" << endl;
         }
         else
         {
-            buffer[(rear + 1) % SIZE] = data;
-            rear = (rear + 1) % SIZE;
-
+            buffer[++top] = data;
         }
+
 
     }
 
-    int Dequeue()
+    int Pop()
     {
-        // 큐가 비어있으면 데이터를 뺄 수 없도록 처리
         if (Empty() == true)
         {
-            cout << "CircleQueue is Empty" << endl;
-
+            cout << "Stack is Empty" << endl;
         }
         else
         {
-            int temp;
-            temp = buffer[(front + 1) % SIZE];
-            buffer[(front + 1) % SIZE] = NULL;
-            front = (front + 1) % SIZE;
-
-            // 임시 변수 return
-            return temp;
-
+            return buffer[top--];
         }
+       
     }
 };
 
  int main()
  {
-     Queue queue;
-     
-     queue.Enqueue(10);
-     queue.Enqueue(20);
-     queue.Enqueue(30);
-     queue.Enqueue(40);
-     queue.Enqueue(50);
-     
+     Stack stack;
 
-     while (!queue.Empty())
+     stack.Push(10);
+     stack.Push(20);
+     stack.Push(30);
+     stack.Push(40);
+     stack.Push(50);
+     stack.Push(60);
+
+     while (!stack.Empty())
      {
-         cout << queue.Dequeue() << endl;
+         cout << stack.Pop() << endl;
      }
-     queue.Enqueue(10);
-     queue.Enqueue(20);
-     queue.Enqueue(30);
-     queue.Enqueue(40);
-     queue.Enqueue(50);
 
 
-
-     while (!queue.Empty())
-     {
-         cout << queue.Dequeue() << endl;
-
-
-     }
-     queue.Enqueue(10);
-     queue.Enqueue(20);
-     queue.Enqueue(30);
-     queue.Enqueue(40);
-     queue.Enqueue(50);
-
-
-
-     while (!queue.Empty())
-     {
-         cout << queue.Dequeue() << endl;
-
-
-     }
 
      return 0;
  }
