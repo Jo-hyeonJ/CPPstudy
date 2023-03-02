@@ -159,6 +159,7 @@
     <ClInclude Include="(2023.02.23)스택.h" />
     <ClInclude Include="(2023.02.24)삽입 정렬.h" />
     <ClInclude Include="(2023.02.28)이중트리.h" />
+    <ClInclude Include="(2023.03.01)계수정렬과 대소문자 변환.h" />
     <ClInclude Include="Computer.h" />
     <ClInclude Include="string문.h" />
   </ItemGroup>
