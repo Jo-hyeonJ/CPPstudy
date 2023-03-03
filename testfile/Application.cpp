@@ -29,16 +29,58 @@ void Insert(int data)
     heapify();
 }
 
-void pop()
+int Delete()
 {
+    int result = heapArray[1];
+    int parent = 1;
+    int child = parent * 2;
+
+
     if (index != 0)
     {
-        cout << heapArray[index--] << endl;
+        heapArray[1] = 0;
+        swap(heapArray[1], heapArray[index]);
+        index--;
     }
     else
     {
-        cout << "인덱스가 비어있다." << endl;
+        cout << "힙이 비어져있음" << endl;
+        return 0;
     }
+
+    while (parent *2 <= index)
+    {
+        // 내 풀이
+       /*
+        if (heapArray[parent] < heapArray[child])
+        {
+            swap(heapArray[parent], heapArray[child]);
+        }
+        child = parent * 2 + 1;
+       
+        if (heapArray[parent] < heapArray[child])
+        {
+            swap(heapArray[parent], heapArray[child]);
+        }
+       
+        parent++;
+        child = parent * 2;
+        */
+        if (heapArray[child] < heapArray[child + 1])
+        {
+            child++;
+        }
+
+        if (heapArray[child] < heapArray[parent])
+        {
+            break;
+        }
+
+        swap(heapArray[parent], heapArray[child]);
+        parent = child;
+    }
+
+    return result;
 }
 
 void heapify()
@@ -53,14 +95,9 @@ void heapify()
             swap(heapArray[parent], heapArray[child]);
         }
 
-        child--;
+        child = parent;
         parent = child / 2;
-
-
     }
-
-
- 
 }
 
 
@@ -93,10 +130,11 @@ int main()
     Insert(33);
 
 
-    for (int i = 1; i <= index; i++)
+    for (int i = index; i != 0; i--)
     {
-    cout << heapArray[i] << endl;
+        cout << Delete() << endl;
     }
+    
 
     return 0;
 }
