@@ -116,5 +116,11 @@
     <ClInclude Include="(2023.03.01)계수정렬과 대소문자 변환.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="(2023.03.06)해시테이블1.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="(2023.03.02~03)힙 자료구조.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

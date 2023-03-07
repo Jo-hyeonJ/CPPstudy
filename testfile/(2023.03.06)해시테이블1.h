@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 
 #define SIZE 5
@@ -52,17 +53,8 @@ void Insert(int key, int value)
     }
 }
 
-int Pop(int key)
+int Pop(int index)
 {
-    int hashindex = hashFunction(key);
-
-    if (bucket[hashindex].size == 0)
-    {
-        cout << "비어있음";
-        return NULL;
-    }
-
-    /*
     int data;
     int off = 1;
     Node* temp = bucket[index].head;
@@ -88,58 +80,8 @@ int Pop(int key)
             temp = temp->next;
         }
     }
-    */
 
-    int data = NULL;
-    Node* current = bucket[hashindex].head;
-    Node* prevnode = NULL;
-
-    while (current != NULL)
-    {
-        // 입력한 키 값과 같은지 비교
-        if (key == current->key)
-        {
-            // 반환값 삽입
-            data = current->value;
-
-            // 노드 정렬을 위한 조건문
-            // 마지막 노드인지 체크
-            if (current->next != NULL)
-            {
-                // 첫번째 노드인지 체크
-                if (prevnode != NULL)
-                {
-                    prevnode->next = current->next;
-                }
-                else
-                {
-                    bucket[hashindex].head = current->next;
-                }
-            }
-            // 노드가 하나 뿐이라면 헤드 값을 널로 준다.
-            else
-            {
-                bucket[hashindex].head = NULL;
-            }
-
-            // 반환이 끝난 노드를 삭제 후 배열 사이즈 다운
-            delete current;
-
-            bucket[hashindex].size--;
-            return data;
-            
-        }
-        // 순환문
-        else
-        {
-            prevnode = current;
-            current = current->next;
-        }
-
-    }
-
-    cout << "입력한 key에 맞는 값이 없음" << endl;
-    return NULL;
+    return data;
 }
 
 int main()
@@ -167,7 +109,6 @@ int main()
 
     }
 
-    cout << Pop(0) << endl;
 
     Insert(0, 10);
     Insert(0, 20);
@@ -185,11 +126,3 @@ int main()
 
     return 0;
 }
-
-
-
-
-
-
-
-
