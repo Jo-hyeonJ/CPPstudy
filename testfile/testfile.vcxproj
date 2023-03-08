@@ -162,6 +162,8 @@
     <ClInclude Include="(2023.03.01)계수정렬과 대소문자 변환.h" />
     <ClInclude Include="(2023.03.02~03)힙 자료구조.h" />
     <ClInclude Include="(2023.03.06)해시테이블1.h" />
+    <ClInclude Include="(2023.03.07)헤시테이블2.h" />
+    <ClInclude Include="(2023.03.07)헤시테이블ver강사님.h" />
     <ClInclude Include="Computer.h" />
     <ClInclude Include="string문.h" />
   </ItemGroup>

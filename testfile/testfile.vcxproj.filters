@@ -122,5 +122,11 @@
     <ClInclude Include="(2023.03.02~03)힙 자료구조.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="(2023.03.07)헤시테이블2.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="(2023.03.07)헤시테이블ver강사님.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
