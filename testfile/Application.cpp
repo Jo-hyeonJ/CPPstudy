@@ -2,88 +2,69 @@
 #include <random>
 
 using namespace std;
+#define SIZE 8
 
-#define SIZE 10
 
+int data[8] = {5,3,1,2,4,7,6,8};
 
-int arr[SIZE];
-
-void QuickSort(int data [], int start, int end)
+void MergeSort()
 {
-    int pivot = start;
-    int left = pivot+1;
-    int right = end;
-    bool lr = 0;
 
-    while (left <= right)
-    {
-        switch (lr)
-        {
-        default:
-            break;
-            // R 체크문
-        case 0 :
-            if (data[pivot] >= data[right])
-            {
-                swap(data[right], data[left]);
-                lr = 1;
-            }
-            else
-            {
-                right--;
-            }
-            // L 체크문
-        case 1:
-            if (data[pivot] < data[left])
-            {
-                lr = 0;
-            }
-            else
-            {
-                left++;
-            }
-        }
-    }
-    if (left > right)
-    {
-        swap(data[pivot], data[right]);
-    }
 
-    // 재귀문
-    if (right-1 > 0)
-    {
-        QuickSort(arr, 0, right-1);
-    }
+}
 
-    if (right+1 < end)
-    {
-        QuickSort(arr, right + 1, end);
-    }
+void Division(int data[], int left, int right)
+{
+    
 
 }
 
 
 int main()
 {
-    // 퀵 정렬
-    // 기점이 되는 키(pivot)를 기준으로 작거나 같은 값을 지닌 데이터는
-    // 앞으로 이동하고 큰 값을 지닌 데이터는 뒤로 이동한다.
-
-    // 그리고 작은 값과 큰 값을 분리하면서 정렬하는 알고리즘
+    // 문자열 뒤집기
+    /*
+    string str = "apple";
     
     
+    string rstr;
+    
+    rstr = str;
 
-    for (int i = 0; i < SIZE - 1; i++)
+    int count = 0;
+
+    // 자리수 구하기
+    for (int i = 0; str[i] != NULL; i++)
     {
-        arr[i] = rand()%10;
+        count++;
     }
 
-    QuickSort(arr, 0,SIZE-1);
-
-    for (int i = 0; i < SIZE; i++)
+    // 역배열로 집어넣기
+    for (int i = 1; i <= count; i++)
     {
-        cout << arr[i] << endl;
+        int rcount = count -i;
+        rstr[rcount] = str[i-1];
     }
+
+    cout << str << endl;
+    cout << rstr << endl;
+    
+
+    for (int i = 0; i < str.length() / 2; i++)
+    {
+        swap(str[i], str[str.length() - 1 - i]);
+    }
+
+    cout << str;
+
+    */
+
+    // 병합 정렬
+    // 하나의 리스트를 두 개의 균등한 크기로 분할하고
+    // 분할된 부분 리스트를 정렬한 다음, 두 개의 정렬된 부분 리스트를 합하여
+    // 전체가 정렬된 리스트가 되도록 정렬하는 알고리즘이다.
+
+
 
 
 
