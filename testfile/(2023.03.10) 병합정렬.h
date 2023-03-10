@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <random>
 
@@ -63,7 +64,7 @@ void Division(int data[], int left, int right)
             Division(data, left, middle);
 
             // 오른쪽 분할 재귀
-            Division(data, middle+1, right);
+            Division(data, middle + 1, right);
         }
 
         MergeSort(arr, left, middle, right);

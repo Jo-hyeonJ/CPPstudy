@@ -131,5 +131,8 @@
     <ClInclude Include="(2023.03.08)퀵정렬.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="(2023.03.10) 병합정렬.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
