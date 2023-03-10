@@ -5,7 +5,7 @@ using namespace std;
 #define SIZE 8
 
 
-int arr[8] = { 5,3,1,2,4,7,6,8 };
+int container[8] = { 5,3,1,2,4,7,6,8 };
 
 void MergeSort(int data[], int start, int middle, int end)
 {
@@ -45,7 +45,7 @@ void MergeSort(int data[], int start, int middle, int end)
 
     for (int i = start; i <= end; i++)
     {
-        data[i] = arr[i];
+        data[i] = container[i];
     }
 
 }
@@ -66,7 +66,7 @@ void Division(int data[], int left, int right)
             Division(data, middle+1, right);
         }
 
-        MergeSort(arr, left, middle, right);
+        MergeSort(container, left, middle, right);
 
     }
 
@@ -119,11 +119,11 @@ int main()
     // 분할된 부분 리스트를 정렬한 다음, 두 개의 정렬된 부분 리스트를 합하여
     // 전체가 정렬된 리스트가 되도록 정렬하는 알고리즘이다.
 
-    Division(arr, 0, 7);
+    Division(container, 0, 7);
 
     for (int i = 0; i < 8; i++)
     {
-        cout << arr[i] << endl;
+        cout << container[i] << endl;
 
     }
 
